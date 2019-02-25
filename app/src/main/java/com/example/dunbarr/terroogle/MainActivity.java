@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,51 +80,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        private class CustomAdapter extends ArrayAdapter<Trip>{
 
-            public CustomAdapter(){
-                super(TripListActivity.this, R.layout.trip_custom_list_item,
-                        TripLibrary.getInstance().getLibrary());
-            }
-
-            public View getView(int position, View convertView, ViewGroup parent){
-                //return null;
-
-                if(convertView == null){
-                    convertView = LayoutInflater.from(TripListActivity.this)
-                            .inflate(R.layout.trip_custom_list_item, parent, false);
-                }
-
-                Trip currentTrip = TripLibrary.getInstance().getLibrary().get(position);
-
-                TextView name = convertView.findViewById(R.id.nameId);
-                ImageView publicIcon = convertView.findViewById(R.id.publicId);
-                ImageView nonPublicIcon = convertView.findViewById(R.id.nonpublicId);
-                TextView description = convertView.findViewById(R.id.descriptId);
-                TextView startDate = convertView.findViewById(R.id.startDateId);
-                TextView endDate = convertView.findViewById(R.id.endDateId);
-
-                name.setText(currentTrip.getName());
-                description.setText(currentTrip.getDescription());
-                startDate.setText(formatter.format(currentTrip.getStartDate()));
-                endDate.setText(formatter.format(currentTrip.getEndDate()));
-                if(currentTrip.isShared()){
-                    publicIcon.setVisibility(View.VISIBLE);
-                    nonPublicIcon.setVisibility(View.GONE);
-                }else{
-                    publicIcon.setVisibility(View.GONE);
-                    nonPublicIcon.setVisibility(View.VISIBLE);
-                }
-
-                return convertView;
-
-            }
-
-            public int count(){
-                return TripLibrary.getInstance().getLibrary().size();
-            }
-
-        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,6 +101,20 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
 
     }
+
+//    private String getLetterGrade(double getTotalPercent) {
+//        if (getTotalPercent() >= 90) {
+//            return "A";
+//        } else if (getTotalPercent() >= 80) {
+//            return "B";
+//        } else if (getTotalPercent() >= 70) {
+//            return "C";
+//        } else if (getTotalPercent() >= 60) {
+//            return "D";
+//        } else {
+//            return "F";
+//        }
+//    }
 
     @Override
     public void onBackPressed() {
